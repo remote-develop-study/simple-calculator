@@ -27,8 +27,6 @@ const handleClickDigits = ({ target }) => {
   }
 
   initialState.current = Number(target.innerText);
-
-  return;
 };
 
 const handleClickOperations = ({ target }) => {
