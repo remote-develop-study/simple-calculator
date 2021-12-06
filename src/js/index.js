@@ -11,6 +11,8 @@ const initialState = {
   operator: "",
 };
 
+const calculatorState = JSON.parse(JSON.stringify(initialState));
+
 const operators = {
   "+": (x, y) => x + y,
   "-": (x, y) => x - y,
@@ -21,40 +23,40 @@ const operators = {
 const handleClickDigits = ({ target }) => {
   $total.innerText = target.innerText;
 
-  if (initialState.acc === 0) {
-    initialState.acc = Number(target.innerText);
+  if (calculatorState.acc === 0) {
+    calculatorState.acc = Number(target.innerText);
     return;
   }
 
-  initialState.current = Number(target.innerText);
+  calculatorState.current = Number(target.innerText);
 };
 
 const handleClickOperations = ({ target }) => {
   if (["/", "X", "-", "+"].includes(target.innerText)) {
-    initialState.operator = target.innerText;
+    calculatorState.operator = target.innerText;
 
     return;
   }
 
   if (
     target.innerText === "=" &&
-    initialState.current &&
-    initialState.operator
+    calculatorState.current &&
+    calculatorState.operator
   ) {
-    initialState.acc = operators[initialState.operator](
-      initialState.acc,
-      initialState.current
+    calculatorState.acc = operators[calculatorState.operator](
+      calculatorState.acc,
+      calculatorState.current
     );
 
-    $total.innerText = initialState.acc;
+    $total.innerText = calculatorState.acc;
   }
 };
 
 const handleClickResetCalculator = () => {
   $total.innerText = 0;
-  initialState.acc = 0;
-  initialState.current = 0;
-  initialState.operator = "";
+  calculatorState.acc = initialState.acc;
+  calculatorState.current = initialState.current;
+  calculatorState.operator = initialState.operator;
 
   return;
 };
